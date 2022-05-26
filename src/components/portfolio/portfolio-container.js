@@ -13,6 +13,7 @@ export default class PortfolioContainer extends Component {
         { title: "ministry safe", category: "Enterprise" },
         { title: "Amazon", category: "eCommerce" },
       ],
+      isLoading: false
     };
 
     this.handleFilter = this.handleFilter.bind(this);
@@ -33,6 +34,10 @@ export default class PortfolioContainer extends Component {
   }
 
   render() {
+
+    if(this.state.isLoading){
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <h2>{this.state.pageTitle}</h2>
