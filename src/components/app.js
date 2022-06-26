@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import moment from "moment";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import PortfolioContainer from "./portfolio/portfolio-container";
@@ -19,8 +18,6 @@ export default class App extends Component {
   render() {
     return (
       <div className="app">
-        <h1>DevCamp React Starter</h1>
-        <h2>React Redux Router</h2>
         <Router>
           <div>
             <NavigationContainer />
