@@ -16,6 +16,7 @@ export default class Login extends Component {
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
+      errorText: ""
     });
   }
   handleSubmit(event) {
@@ -24,11 +25,29 @@ export default class Login extends Component {
       {
         client: {
           email: this.state.email,
-          password: this.state.password
+          password: this.state.password,
+          errorText: ""
         }
       },
       { withCredentials: true }
-    );
+    ).then(response => {
+      if(response.data.status === 'created'){
+        this.props.handleSuccessfulAuth(); 
+      }
+      else{
+        this.setState({
+          errorText: "Wrong Email or password"
+        })
+        this.props.handleUnsuccessfulAuth(); 
+      }
+    }).catch(error => {
+      console.log("Got an error");
+      this.setState({
+        errorText: "An error ocurred"
+      });
+      this.props.handleUnsuccessfulAuth(); 
+    })
+
     event.preventDefault(); // Don't follow regular behaviour.
   }
 
@@ -36,6 +55,7 @@ export default class Login extends Component {
     return (
       <div>
         <h1> Login to access your dashboard</h1>
+        <div>{this.state.errorText}</div>
         <form onSubmit={this.handleSubmit}>
           <input
             type="email"
